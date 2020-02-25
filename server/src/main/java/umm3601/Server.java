@@ -11,6 +11,7 @@ import com.mongodb.client.MongoDatabase;
 import io.javalin.Javalin;
 
 import umm3601.user.UserController;
+import umm3601.todo.TodoController;
 
 public class Server {
 
@@ -38,6 +39,7 @@ public class Server {
 
     // Initialize dependencies
     UserController userController = new UserController(database);
+    TodoController todoController = new TodoController(database);
     //UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
 
     Javalin server = Javalin.create().start(4567);
