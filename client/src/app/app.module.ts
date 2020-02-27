@@ -7,9 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,9 +22,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { UserListComponent } from './users/user-list.component';
 import { HomeComponent } from './home/home.component';
@@ -32,6 +34,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
 import { AddUserComponent } from './users/add-user.component';
+import { TodoService } from './todos/todo.service';
+import { TodoListComponent } from './todos/todo-list.component';
+import { TodoTableComponent } from './todos/todo-table.component';
+
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -49,7 +55,9 @@ const MATERIAL_MODULES: any[] = [
   MatFormFieldModule,
   MatDividerModule,
   MatRadioModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSortModule,
+  MatTableModule,
 ];
 
 @NgModule({
@@ -60,10 +68,10 @@ const MATERIAL_MODULES: any[] = [
     UserCardComponent,
     UserProfileComponent,
     AddUserComponent,
+    TodoTableComponent,
+    TodoListComponent,
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -71,9 +79,11 @@ const MATERIAL_MODULES: any[] = [
     HttpClientModule,
     MATERIAL_MODULES,
     LayoutModule,
+    AppRoutingModule,
   ],
   providers: [
-    UserService
+    UserService,
+    TodoService,
   ],
   bootstrap: [AppComponent]
 })
