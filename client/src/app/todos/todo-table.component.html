@@ -1,0 +1,39 @@
+<table
+  #todoTable
+  mat-table
+  class="todo-table"
+  [dataSource]="sortedData()"
+  matSort
+  (matSortChange)="sortData($event)">
+
+  <ng-container matColumnDef="owner">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="owner" id="todo-owner-header"> Owner </th>
+    <td mat-cell class="todo-owner-cell" *matCellDef="let todo">
+      {{todo.owner}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="category" id="todo-category-header"> Category </th>
+    <td mat-cell class="todo-category-cell" *matCellDef="let todo">
+      {{todo.category}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="status" id="todo-status-header"> Status </th>
+    <td mat-cell class="todo-status-cell" *matCellDef="let todo">
+      {{todo.status ? 'Complete' : 'Incomplete'}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="body">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="body" id="todo-body-header"> Body </th>
+    <td mat-cell class="todo-body-cell" *matCellDef="let todo">
+      {{todo.body}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let todo; columns: columnsToDisplay"></tr>
+</table>
