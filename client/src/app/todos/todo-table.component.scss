@@ -1,0 +1,14 @@
+ // It's important to specify the .mat-whatever classes: otherwise,
+// the CSS rules get overridden by Angular's own styles.
+th.mat-header-cell, td.mat-cell {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+table.mat-table {
+  width: 100%;
+}
+
+.mat-sort-header-container {
+  align-items: center;
+}
