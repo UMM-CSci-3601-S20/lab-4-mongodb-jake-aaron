@@ -55,13 +55,22 @@ public class Server {
 
     server.delete("api/users/:id", userController::deleteUser);
 
+    // Get specific todo
+    server.get("api/todos/:id", todoController::getTodo);
+
+    server.delete("api/todos/:id", todoController::deleteTodo);
+
     // List users, filtered using query parameters
     server.get("api/users", userController::getUsers);
+
+    // List todos, filtered using query parameters
+    server.get("api/todos", todoController::getTodos);
 
     // Add new user
     server.post("api/users/new", userController::addNewUser);
 
-
+    // Add new todo
+    server.post("api/todos/new", todoController::addNewTodo);
 
     server.exception(Exception.class, (e, ctx) -> {
       ctx.status(500);
