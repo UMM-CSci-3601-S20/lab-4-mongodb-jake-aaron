@@ -114,8 +114,30 @@ public class TodoController {
     Todo newTodo = ctx.bodyValidator(Todo.class)
     .check((tdo) -> tdo.owner != null && tdo.owner.length()>0)
     .check((tdo) -> tdo.category.matches("^(software design|video games|groceries|homework)$"))
-    //.check((tdo) -> tdo.status != null && tdo.owner.length()>0)
+    .check((tdo) -> String.valueOf(tdo.status) != null &&
+      String.valueOf(tdo.status) == "true"
+      || String.valueOf(tdo.status) == "false")
     .check((tdo) -> tdo.body != null && tdo.body.length()>0)
     .get();
+
+    todoCollection.insertOne(newTodo);
+    ctx.status(201);
+    ctx.json(ImmutableMap.of("id", newTodo._id));
+  }
+
+    /**
+   * Utility function to generate the md5 hash for a given string
+   *
+   * @param str the string to generate a md5 for
+   */
+  public String md5(String str) throws NoSuchAlgorithmException {
+    MessageDigest md = MessageDigest.getInstance("MD5");
+    byte[] hashInBytes = md.digest(str.toLowerCase().getBytes(StandardCharsets.UTF_8));
+
+    String result = "";
+    for (byte b : hashInBytes) {
+      result += String.format("%02x", b);
+    }
+    return result;
   }
 }
