@@ -21,6 +21,7 @@ export class AddUserComponent implements OnInit {
 
   // not sure if this name is magical and making it be found or if I'm missing something,
   // but this is where the red text that shows up (when there is invalid input) comes from
+  // tslint:disable-next-line: variable-name
   add_user_validation_messages = {
     name: [
       {type: 'required', message: 'Name is required'},
