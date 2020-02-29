@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { map } from 'rxjs/operators';
 import { Todo } from './todo';
 
 @Injectable()
@@ -29,6 +30,10 @@ export class TodoService {
     });
   }
 
+  getTodoById(id: string): Observable<Todo> {
+    return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
+  }
+
   filterTodos(todos: Todo[], filters: {
       owner?: string,
       body?: string,
@@ -43,5 +48,10 @@ export class TodoService {
       }
     }
     return filteredTodos;
+  }
+
+  addTodo(newTodo: Todo): Observable<string> {
+    // Send post request to add a new user with the user data as the body.
+    return this.httpClient.post<{id: string}>(this.todoUrl + '/new', newTodo).pipe(map(res => res.id));
   }
 }

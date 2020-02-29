@@ -113,7 +113,7 @@ public class TodoController {
   public void addNewTodo(Context ctx) {
     Todo newTodo = ctx.bodyValidator(Todo.class)
     .check((tdo) -> tdo.owner != null && tdo.owner.length()>0)
-    .check((tdo) -> tdo.category.matches("^(software design|video games|groceries|homework)$"))
+    .check((tdo) -> tdo.category != null && tdo.category.length()>0)
     .check((tdo) -> String.valueOf(tdo.status) != null &&
       String.valueOf(tdo.status) == "true"
       || String.valueOf(tdo.status) == "false")
