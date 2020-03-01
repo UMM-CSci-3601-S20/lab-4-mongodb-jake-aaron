@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
 
+
 @Component({
     selector: 'app-add-todo',
     templateUrl: './add-todo.component.html',
     styleUrls: ['./add-todo.component.scss']
 })
 export class AddTodoComponent implements OnInit {
-
     addTodoForm: FormGroup;
 
     todo: Todo;

@@ -10,6 +10,34 @@ import { testTodos } from './test-todos';
  */
 @Injectable()
 export class MockTodoService extends TodoService {
+  static testTodos: Todo[] = [
+    {
+        _id: 'warren_id',
+        owner: 'Warren',
+        category: 'Visual Art Pioneering',
+        status: true,
+        body: 'one by one by one',
+    },
+    {
+        _id: 'deb_id',
+        owner: 'Deb',
+        category: 'Grad Studenting',
+        status: true,
+        // tslint:disable-next-line: quotemark
+        body: "It's not there. It's not there.",
+    },
+    {
+        _id: 'claire_id',
+        owner: 'Claire',
+        category: 'Unhappy Relationshipping',
+        status: false,
+        // tslint:disable-next-line: quotemark
+        body: "I'm trying.",
+    },
+  ];
+
+  public todoArray: Todo[];
+
   constructor() {
     super(null);
   }
@@ -19,7 +47,11 @@ export class MockTodoService extends TodoService {
     status?: string,
     body?: string,
     owner?: string }): Observable<Todo[]> {
-    // Just return the test users regardless of what filters are passed in
     return of(testTodos);
+  }
+
+  addTodo(newTodo: Todo): Observable<string> {
+    this.todoArray.push(newTodo);
+    return of('Sure, that\'s totally stored in the database now!');
   }
 }

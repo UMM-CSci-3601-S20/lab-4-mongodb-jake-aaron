@@ -18,6 +18,7 @@ describe('AddTodoComponent', () => {
     let addTodoForm: FormGroup;
     let calledClose: boolean;
     let fixture: ComponentFixture<AddTodoComponent>;
+    const mockTodoService = new MockTodoService();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -196,4 +197,30 @@ describe('AddTodoComponent', () => {
         });
 
      });
+
+    describe('submitting the form', () => {
+        let ownerControl: AbstractControl;
+        let statusControl: AbstractControl;
+        let categoryControl: AbstractControl;
+        let bodyControl: AbstractControl;
+
+        beforeEach(() => {
+          ownerControl = addTodoComponent.addTodoForm.controls[`owner`];
+          statusControl = addTodoComponent.addTodoForm.controls[`status`];
+          categoryControl = addTodoComponent.addTodoForm.controls[`category`];
+          bodyControl = addTodoComponent.addTodoForm.controls[`body`];
+          mockTodoService.todoArray = [];
+        });
+
+        it('should give an object to TodoService whose status is true or false, not "complete" or "incomplete"', () => {
+          ownerControl.setValue('Elle');
+          statusControl.setValue('complete');
+          categoryControl.setValue('Law School Applications');
+          bodyControl.setValue('Im going to harvard law!');
+
+          addTodoComponent.submitForm();
+
+          expect(typeof (mockTodoService.todoArray[0].status)).toBe('boolean');
+        });
+    });
 });
