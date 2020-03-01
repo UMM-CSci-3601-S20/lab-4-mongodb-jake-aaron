@@ -11,7 +11,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockTodoService } from 'src/testing/todo.service.mock';
 import { AddTodoComponent } from './add-todo.component';
 import { TodoService } from './todo.service';
-import { AddUserComponent } from '../users/add-user.component';
 import { MatIconModule } from '@angular/material/icon';
 
 describe('AddTodoComponent', () => {
@@ -33,11 +32,10 @@ describe('AddTodoComponent', () => {
                 BrowserAnimationsModule,
                 RouterTestingModule,
                 MatIconModule,
-                ReactiveFormsModule
               ],
             declarations: [AddTodoComponent],
             providers: [{ provide: TodoService, useValue: new MockTodoService() }]
-        }).compileComponents().catch(error =>{
+        }).compileComponents().catch(error => {
             expect(error).toBeNull();
         });
     }));
@@ -66,7 +64,7 @@ describe('AddTodoComponent', () => {
         let ownerControl: AbstractControl;
 
         beforeEach(() => {
-            ownerControl = addTodoComponent.addTodoForm.controls['owner'];
+            ownerControl = addTodoComponent.addTodoForm.controls.owner;
         });
 
         it('should not allow empty owners', () => {
@@ -102,7 +100,7 @@ describe('AddTodoComponent', () => {
         let bodyControl: AbstractControl;
 
         beforeEach(() => {
-            bodyControl = addTodoComponent.addTodoForm.controls['body'];
+            bodyControl = addTodoComponent.addTodoForm.controls.body;
         });
 
         it('should not allow empty bodys', () => {
@@ -131,13 +129,13 @@ describe('AddTodoComponent', () => {
             bodyControl.setValue('123655');
             expect(bodyControl.valid).toBeTruthy();
         });
-    })
+    });
 
     describe('The category field', () => {
         let categoryControl: AbstractControl;
 
         beforeEach(() => {
-            categoryControl = addTodoComponent.addTodoForm.controls['category'];
+            categoryControl = addTodoComponent.addTodoForm.controls.category;
         });
 
         it('should not allow empty categorys', () => {
@@ -173,7 +171,7 @@ describe('AddTodoComponent', () => {
         let statusControl: AbstractControl;
 
         beforeEach(() => {
-            statusControl = addTodoComponent.addTodoForm.controls['status'];
+            statusControl = addTodoComponent.addTodoForm.controls.status;
         });
 
         it('should not allow empty statuss', () => {
