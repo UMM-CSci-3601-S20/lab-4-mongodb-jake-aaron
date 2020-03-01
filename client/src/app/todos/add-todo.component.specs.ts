@@ -12,6 +12,7 @@ import { MockTodoService } from 'src/testing/todo.service.mock';
 import { AddTodoComponent } from './add-todo.component';
 import { TodoService } from './todo.service';
 import { AddUserComponent } from '../users/add-user.component';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('AddTodoComponent', () => {
     let addTodoComponent: AddTodoComponent;
@@ -30,7 +31,9 @@ describe('AddTodoComponent', () => {
                 MatSelectModule,
                 MatInputModule,
                 BrowserAnimationsModule,
-                RouterTestingModule
+                RouterTestingModule,
+                MatIconModule,
+                ReactiveFormsModule
               ],
             declarations: [AddTodoComponent],
             providers: [{ provide: TodoService, useValue: new MockTodoService() }]
