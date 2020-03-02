@@ -23,26 +23,26 @@ export class AddTodoComponent implements OnInit {
     add_todo_validation_messages = {
         owner: [
             {type: 'required', message: 'Owner is required'},
-            {type: 'min', message: 'Owner must be at least 2 characters long'},
-            {type: 'max', message: 'Owner cannot be more than 50 characters long'},
+            {type: 'minlength', message: 'Owner must be at least 2 characters long'},
+            {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
             {type: 'pattern', message: 'Owner must contain only letters'}
         ],
 
         body: [
             {type: 'required', message: 'Body is required'},
-            {type: 'min', message: 'Body must be at least 2 characters long'},
-            {type: 'max', message: 'Body cannot be more than 200 characters long'},
+            {type: 'minlength', message: 'Body must be at least 1 character long'},
+            {type: 'maxlength', message: 'Body cannot be more than 200 characters long'}
         ],
 
         category: [
             {type: 'required', message: 'Category is required'},
-            {type: 'min', message: 'Category must be at least 2 characters long'},
-            {type: 'max', message: 'Category cannot be more than 15 characters long'},
+            {type: 'minlength', message: 'Category must be at least 1 character long'},
+            {type: 'maxlength', message: 'Category cannot be more than 15 characters long'}
         ],
 
         status: [
             {type: 'required', message: 'Status is required'},
-            {type: 'pattern', message: 'Status must be Complete or Incomplete'},
+            {type: 'pattern', message: 'Status must be Complete or Incomplete'}
         ]
     };
 
@@ -50,14 +50,14 @@ export class AddTodoComponent implements OnInit {
         this.addTodoForm = this.fb.group({
             owner: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.minLength(3),
+                Validators.minLength(2),
                 Validators.maxLength(50),
                 Validators.pattern('^[A-Za-z]*$')
             ])),
 
             body: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.minLength(1),
+                Validators.minLength(5),
                 Validators.maxLength(200)
             ])),
 
@@ -69,7 +69,7 @@ export class AddTodoComponent implements OnInit {
 
             status: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern('^(Incomplete|Complete)$')
+                Validators.pattern('^(true|false)$')
             ])),
         });
     }

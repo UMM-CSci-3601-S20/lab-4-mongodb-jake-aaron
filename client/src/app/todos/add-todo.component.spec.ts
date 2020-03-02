@@ -76,13 +76,13 @@ describe('AddTodoComponent', () => {
         it('should fail single character owners', () => {
             ownerControl.setValue('X');
             expect(ownerControl.valid).toBeFalsy();
-            expect(ownerControl.hasError('min')).toBeTruthy();
+            expect(ownerControl.hasError('minlength')).toBeTruthy();
         });
 
         it('should fail too large owners', () => {
             ownerControl.setValue('x'.repeat(60));
             expect(ownerControl.valid).toBeFalsy();
-            expect(ownerControl.hasError('max')).toBeTruthy();
+            expect(ownerControl.hasError('maxlength')).toBeTruthy();
         });
 
         it('should fail special character owners', () => {
@@ -113,13 +113,13 @@ describe('AddTodoComponent', () => {
         it('should fail single character bodys', () => {
             bodyControl.setValue('x');
             expect(bodyControl.valid).toBeFalsy();
-            expect(bodyControl.hasError('min')).toBeTruthy();
+            expect(bodyControl.hasError('minlength')).toBeTruthy();
         });
 
         it('should fail too large bodys', () => {
-            bodyControl.setValue('x'.repeat(205));
+            bodyControl.setValue('x'.repeat(201));
             expect(bodyControl.valid).toBeFalsy();
-            expect(bodyControl.hasError('max')).toBeTruthy();
+            expect(bodyControl.hasError('maxlength')).toBeTruthy();
         });
 
         it('should allow special character bodys', () => {
@@ -140,29 +140,28 @@ describe('AddTodoComponent', () => {
             categoryControl = addTodoComponent.addTodoForm.controls['category'];
         });
 
-        it('should not allow empty categorys', () => {
+        it('should not allow empty categories', () => {
             categoryControl.setValue('');
             expect(categoryControl.valid).toBeFalsy();
         });
 
-        it('should fail single character categorys', () => {
+        it('should allow single character categories', () => {
             categoryControl.setValue('x');
-            expect(categoryControl.valid).toBeFalsy();
-            expect(categoryControl.hasError('min')).toBeTruthy();
+            expect(categoryControl.valid).toBeTruthy();
         });
 
-        it('should fail too large categorys', () => {
-            categoryControl.setValue('x'.repeat(16));
+        it('should fail too large categories', () => {
+            categoryControl.setValue('xxxxxxxxxxxxxxxx');
             expect(categoryControl.valid).toBeFalsy();
-            expect(categoryControl.hasError('max')).toBeTruthy();
+            expect(categoryControl.hasError('maxlength')).toBeTruthy();
         });
 
-        it('should allow character categorys', () => {
+        it('should allow special character categories', () => {
             categoryControl.setValue('*');
             expect(categoryControl.valid).toBeTruthy();
         });
 
-        it('should allow numbers in categorys', () => {
+        it('should allow numbers in categories', () => {
             categoryControl.setValue('123655');
             expect(categoryControl.valid).toBeTruthy();
         });
@@ -181,17 +180,17 @@ describe('AddTodoComponent', () => {
             expect(statusControl.valid).toBeFalsy();
         });
 
-        it('should allow Incomplete', () => {
-            statusControl.setValue('Incomplete');
+        it('should allow false', () => {
+            statusControl.setValue(false);
             expect(statusControl.valid).toBeTruthy();
         });
 
-        it('should allow Complete', () => {
-            statusControl.setValue('Complete');
+        it('should allow true', () => {
+            statusControl.setValue(true);
             expect(statusControl.valid).toBeTruthy();
         });
 
-        it('should other statuss', () => {
+        it('should not allow other statuss', () => {
             statusControl.setValue('Elle Woods');
             expect(statusControl.valid).toBeFalsy();
             expect(statusControl.hasError('pattern')).toBeTruthy();
@@ -215,7 +214,7 @@ describe('AddTodoComponent', () => {
 
         it('should give an object to TodoService whose status is true or false, not "complete" or "incomplete"', () => {
           ownerControl.setValue('Elle');
-          statusControl.setValue('complete');
+          statusControl.setValue('Complete');
           categoryControl.setValue('Law School Applications');
           bodyControl.setValue('Im going to harvard law!');
 
