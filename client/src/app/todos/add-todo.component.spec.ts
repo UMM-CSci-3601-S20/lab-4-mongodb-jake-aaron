@@ -65,7 +65,7 @@ describe('AddTodoComponent', () => {
         let ownerControl: AbstractControl;
 
         beforeEach(() => {
-            ownerControl = addTodoComponent.addTodoForm.controls.owner;
+            ownerControl = addTodoComponent.addTodoForm.controls['owner'];
         });
 
         it('should not allow empty owners', () => {
@@ -74,7 +74,7 @@ describe('AddTodoComponent', () => {
         });
 
         it('should fail single character owners', () => {
-            ownerControl.setValue('x');
+            ownerControl.setValue('X');
             expect(ownerControl.valid).toBeFalsy();
             expect(ownerControl.hasError('min')).toBeTruthy();
         });
@@ -91,9 +91,10 @@ describe('AddTodoComponent', () => {
             expect(ownerControl.hasError('pattern')).toBeTruthy();
         });
 
-        it('should allow numbers in owners', () => {
+        it('should not allow numbers in owners', () => {
             ownerControl.setValue('123655');
-            expect(ownerControl.valid).toBeTruthy();
+            expect(ownerControl.valid).toBeFalsy();
+            expect(ownerControl.hasError('pattern')).toBeTruthy();
         });
     });
 
@@ -101,7 +102,7 @@ describe('AddTodoComponent', () => {
         let bodyControl: AbstractControl;
 
         beforeEach(() => {
-            bodyControl = addTodoComponent.addTodoForm.controls.body;
+            bodyControl = addTodoComponent.addTodoForm.controls['body'];
         });
 
         it('should not allow empty bodys', () => {
@@ -136,7 +137,7 @@ describe('AddTodoComponent', () => {
         let categoryControl: AbstractControl;
 
         beforeEach(() => {
-            categoryControl = addTodoComponent.addTodoForm.controls.category;
+            categoryControl = addTodoComponent.addTodoForm.controls['category'];
         });
 
         it('should not allow empty categorys', () => {
@@ -172,7 +173,7 @@ describe('AddTodoComponent', () => {
         let statusControl: AbstractControl;
 
         beforeEach(() => {
-            statusControl = addTodoComponent.addTodoForm.controls.status;
+            statusControl = addTodoForm.controls['status'];
         });
 
         it('should not allow empty statuss', () => {

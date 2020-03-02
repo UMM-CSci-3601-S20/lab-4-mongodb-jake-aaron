@@ -25,7 +25,7 @@ export class AddTodoComponent implements OnInit {
             {type: 'required', message: 'Owner is required'},
             {type: 'min', message: 'Owner must be at least 2 characters long'},
             {type: 'max', message: 'Owner cannot be more than 50 characters long'},
-            {type: 'pattern', message: 'Owner must contain only lettters and numbers'}
+            {type: 'pattern', message: 'Owner must contain only letters'}
         ],
 
         body: [
@@ -50,21 +50,21 @@ export class AddTodoComponent implements OnInit {
         this.addTodoForm = this.fb.group({
             owner: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(2),
-                Validators.max(50),
-                Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s+$(\\.0-9+)?')
+                Validators.minLength(3),
+                Validators.maxLength(50),
+                Validators.pattern('^[A-Za-z]*$')
             ])),
 
             body: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(1),
-                Validators.max(200)
+                Validators.minLength(1),
+                Validators.maxLength(200)
             ])),
 
             category: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(1),
-                Validators.max(15)
+                Validators.minLength(1),
+                Validators.maxLength(15)
             ])),
 
             status: new FormControl('', Validators.compose([
