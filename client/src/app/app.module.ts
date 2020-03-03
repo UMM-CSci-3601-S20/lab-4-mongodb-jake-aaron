@@ -37,6 +37,7 @@ import { AddUserComponent } from './users/add-user.component';
 import { TodoService } from './todos/todo.service';
 import { TodoListComponent } from './todos/todo-list.component';
 import { TodoTableComponent } from './todos/todo-table.component';
+import { AddTodoComponent } from './todos/add-todo.component';
 
 
 const MATERIAL_MODULES: any[] = [
@@ -70,6 +71,7 @@ const MATERIAL_MODULES: any[] = [
     AddUserComponent,
     TodoTableComponent,
     TodoListComponent,
+    AddTodoComponent
   ],
   imports: [
     BrowserAnimationsModule,

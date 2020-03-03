@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, Form } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
+
 
 @Component({
     selector: 'app-add-todo',
@@ -11,7 +12,6 @@ import { TodoService } from './todo.service';
     styleUrls: ['./add-todo.component.scss']
 })
 export class AddTodoComponent implements OnInit {
-
     addTodoForm: FormGroup;
 
     todo: Todo;
@@ -23,26 +23,26 @@ export class AddTodoComponent implements OnInit {
     add_todo_validation_messages = {
         owner: [
             {type: 'required', message: 'Owner is required'},
-            {type: 'min', message: 'Owner must be at least 2 characters long'},
-            {type: 'max', message: 'Owner cannot be more than 50 characters long'},
-            {type: 'pattern', message: 'Owner must contain only lettters and numbers'}
+            {type: 'minlength', message: 'Owner must be at least 2 characters long'},
+            {type: 'maxlength', message: 'Owner cannot be more than 50 characters long'},
+            {type: 'pattern', message: 'Owner must contain only letters'}
         ],
 
         body: [
             {type: 'required', message: 'Body is required'},
-            {type: 'min', message: 'Body must be at least 2 characters long'},
-            {type: 'max', message: 'Body cannot be more than 200 characters long'},
+            {type: 'minlength', message: 'Body must be at least 2 characters long'},
+            {type: 'maxlength', message: 'Body cannot be more than 200 characters long'}
         ],
 
         category: [
             {type: 'required', message: 'Category is required'},
-            {type: 'min', message: 'Category must be at least 2 characters long'},
-            {type: 'max', message: 'Category cannot be more than 15 characters long'},
+            {type: 'minlength', message: 'Category must be at least 2 characters long'},
+            {type: 'maxlength', message: 'Category cannot be more than 15 characters long'}
         ],
 
         status: [
             {type: 'required', message: 'Status is required'},
-            {type: 'pattern', message: 'Status must be Complete or Incomplete'},
+            {type: 'pattern', message: 'Status must be Complete or Incomplete'}
         ]
     };
 
@@ -50,26 +50,26 @@ export class AddTodoComponent implements OnInit {
         this.addTodoForm = this.fb.group({
             owner: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(2),
-                Validators.max(50),
-                Validators.pattern('^[A-Za-z0-9\\s]+[A-Za-z0-9\\s+$(\\.0-9+)?')
+                Validators.minLength(2),
+                Validators.maxLength(50),
+                Validators.pattern('^[A-Za-z]*$')
             ])),
 
             body: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(1),
-                Validators.max(200)
+                Validators.minLength(2),
+                Validators.maxLength(200)
             ])),
 
             category: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.min(1),
-                Validators.max(15)
+                Validators.minLength(2),
+                Validators.maxLength(15)
             ])),
 
             status: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern('^(Incomplete|Complete)$')
+                Validators.pattern('^(true|false)$')
             ])),
         });
     }

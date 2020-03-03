@@ -11,13 +11,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockTodoService } from 'src/testing/todo.service.mock';
 import { AddTodoComponent } from './add-todo.component';
 import { TodoService } from './todo.service';
-import { AddUserComponent } from '../users/add-user.component';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('AddTodoComponent', () => {
     let addTodoComponent: AddTodoComponent;
     let addTodoForm: FormGroup;
     let calledClose: boolean;
     let fixture: ComponentFixture<AddTodoComponent>;
+    const mockTodoService = new MockTodoService();
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -30,11 +31,12 @@ describe('AddTodoComponent', () => {
                 MatSelectModule,
                 MatInputModule,
                 BrowserAnimationsModule,
-                RouterTestingModule
+                RouterTestingModule,
+                MatIconModule,
               ],
             declarations: [AddTodoComponent],
             providers: [{ provide: TodoService, useValue: new MockTodoService() }]
-        }).compileComponents().catch(error =>{
+        }).compileComponents().catch(error => {
             expect(error).toBeNull();
         });
     }));
@@ -72,15 +74,15 @@ describe('AddTodoComponent', () => {
         });
 
         it('should fail single character owners', () => {
-            ownerControl.setValue('x');
+            ownerControl.setValue('X');
             expect(ownerControl.valid).toBeFalsy();
-            expect(ownerControl.hasError('min')).toBeTruthy();
+            expect(ownerControl.hasError('minlength')).toBeTruthy();
         });
 
         it('should fail too large owners', () => {
             ownerControl.setValue('x'.repeat(60));
             expect(ownerControl.valid).toBeFalsy();
-            expect(ownerControl.hasError('max')).toBeTruthy();
+            expect(ownerControl.hasError('maxlength')).toBeTruthy();
         });
 
         it('should fail special character owners', () => {
@@ -89,9 +91,10 @@ describe('AddTodoComponent', () => {
             expect(ownerControl.hasError('pattern')).toBeTruthy();
         });
 
-        it('should allow numbers in owners', () => {
+        it('should not allow numbers in owners', () => {
             ownerControl.setValue('123655');
-            expect(ownerControl.valid).toBeTruthy();
+            expect(ownerControl.valid).toBeFalsy();
+            expect(ownerControl.hasError('pattern')).toBeTruthy();
         });
     });
 
@@ -110,25 +113,25 @@ describe('AddTodoComponent', () => {
         it('should fail single character bodys', () => {
             bodyControl.setValue('x');
             expect(bodyControl.valid).toBeFalsy();
-            expect(bodyControl.hasError('min')).toBeTruthy();
+            expect(bodyControl.hasError('minlength')).toBeTruthy();
         });
 
         it('should fail too large bodys', () => {
-            bodyControl.setValue('x'.repeat(205));
+            bodyControl.setValue('x'.repeat(201));
             expect(bodyControl.valid).toBeFalsy();
-            expect(bodyControl.hasError('max')).toBeTruthy();
+            expect(bodyControl.hasError('maxlength')).toBeTruthy();
         });
 
-        it('should allow special character bodys', () => {
+        it('should not allow special character bodys', () => {
             bodyControl.setValue('*');
-            expect(bodyControl.valid).toBeTruthy();
+            expect(bodyControl.valid).toBeFalsy();
         });
 
         it('should allow numbers in bodys', () => {
             bodyControl.setValue('123655');
             expect(bodyControl.valid).toBeTruthy();
         });
-    })
+    });
 
     describe('The category field', () => {
         let categoryControl: AbstractControl;
@@ -137,29 +140,29 @@ describe('AddTodoComponent', () => {
             categoryControl = addTodoComponent.addTodoForm.controls['category'];
         });
 
-        it('should not allow empty categorys', () => {
+        it('should not allow empty categories', () => {
             categoryControl.setValue('');
             expect(categoryControl.valid).toBeFalsy();
         });
 
-        it('should fail single character categorys', () => {
+        it('should not allow single character categories', () => {
             categoryControl.setValue('x');
             expect(categoryControl.valid).toBeFalsy();
-            expect(categoryControl.hasError('min')).toBeTruthy();
+            expect(categoryControl.hasError('minlength')).toBeTruthy();
         });
 
-        it('should fail too large categorys', () => {
-            categoryControl.setValue('x'.repeat(16));
+        it('should fail too large categories', () => {
+            categoryControl.setValue('xxxxxxxxxxxxxxxx');
             expect(categoryControl.valid).toBeFalsy();
-            expect(categoryControl.hasError('max')).toBeTruthy();
+            expect(categoryControl.hasError('maxlength')).toBeTruthy();
         });
 
-        it('should allow character categorys', () => {
+        it('should not allow special character categories', () => {
             categoryControl.setValue('*');
-            expect(categoryControl.valid).toBeTruthy();
+            expect(categoryControl.valid).toBeFalsy();
         });
 
-        it('should allow numbers in categorys', () => {
+        it('should allow numbers in categories', () => {
             categoryControl.setValue('123655');
             expect(categoryControl.valid).toBeTruthy();
         });
@@ -170,7 +173,7 @@ describe('AddTodoComponent', () => {
         let statusControl: AbstractControl;
 
         beforeEach(() => {
-            statusControl = addTodoComponent.addTodoForm.controls['status'];
+            statusControl = addTodoForm.controls['status'];
         });
 
         it('should not allow empty statuss', () => {
@@ -178,21 +181,36 @@ describe('AddTodoComponent', () => {
             expect(statusControl.valid).toBeFalsy();
         });
 
-        it('should allow Incomplete', () => {
-            statusControl.setValue('Incomplete');
+        it('should allow false', () => {
+            statusControl.setValue(false);
             expect(statusControl.valid).toBeTruthy();
         });
 
-        it('should allow Complete', () => {
-            statusControl.setValue('Complete');
+        it('should allow true', () => {
+            statusControl.setValue(true);
             expect(statusControl.valid).toBeTruthy();
         });
 
-        it('should other statuss', () => {
+        it('should not allow other statuss', () => {
             statusControl.setValue('Elle Woods');
             expect(statusControl.valid).toBeFalsy();
             expect(statusControl.hasError('pattern')).toBeTruthy();
         });
 
      });
+
+    describe('submitting the form', () => {
+        let ownerControl: AbstractControl;
+        let statusControl: AbstractControl;
+        let categoryControl: AbstractControl;
+        let bodyControl: AbstractControl;
+
+        beforeEach(() => {
+          ownerControl = addTodoComponent.addTodoForm.controls[`owner`];
+          statusControl = addTodoComponent.addTodoForm.controls[`status`];
+          categoryControl = addTodoComponent.addTodoForm.controls[`category`];
+          bodyControl = addTodoComponent.addTodoForm.controls[`body`];
+          mockTodoService.todoArray = [];
+        });
+    });
 });
