@@ -1,4 +1,4 @@
-import {browser, protractor, by, element, utils} from 'protractor';
+import {browser, protractor, by, element, /*utils*/} from 'protractor';
 import { AddUserPage, TestUser } from './add-user.po';
 import { E2EUtil } from './e2e.util';
 
