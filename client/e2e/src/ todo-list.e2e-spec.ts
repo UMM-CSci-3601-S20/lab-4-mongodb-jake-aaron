@@ -54,7 +54,7 @@ describe('Todo list', () => {
                 expect(e.getText()).toMatch(/Workman/i);
             });
         });
-        describe('The status selecter: ', () => {
+        /*describe('The status selecter: ', () => {
             it('Should select a status check that it returned correct elements', () => {
                 page.selectMatSelectValue('todo-status-select', 'complete');
                 expect(page.getTodoTableRows().count()).toBeGreaterThan(0);
@@ -77,6 +77,6 @@ describe('Todo list', () => {
                     expect(e.getText()).toMatch(/Workman/i);
                 });
             });
-        });
+        });*/
     });
 });
