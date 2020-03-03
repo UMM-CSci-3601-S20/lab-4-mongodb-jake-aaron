@@ -50,7 +50,7 @@ export class TodoPage {
     }
 
     getTodoBodyCells() {
-        return element.all(by.className('todo-body-cell'))
+        return element.all(by.className('todo-body-cell'));
     }
     clickHeaderCell(headerCellID: string) {
         const headerCell = element(by.id(headerCellID));
