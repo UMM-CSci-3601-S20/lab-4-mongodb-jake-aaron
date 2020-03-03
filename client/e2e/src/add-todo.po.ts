@@ -1,4 +1,4 @@
-import {browser, by, element, Key, ElementFinder} from 'protractor';
+import {browser, by, element, /*Key, ElementFinder*/} from 'protractor';
 
 export interface TestTodo {
   owner: string;
