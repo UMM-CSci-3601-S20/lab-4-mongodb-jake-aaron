@@ -44,7 +44,7 @@ export class MockTodoService extends TodoService {
 
   getTodos(filters?: {
     category?: string,
-    status?: string,
+    status?: boolean,
     body?: string,
     owner?: string }): Observable<Todo[]> {
     return of(testTodos);

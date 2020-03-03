@@ -122,9 +122,9 @@ describe('AddTodoComponent', () => {
             expect(bodyControl.hasError('maxlength')).toBeTruthy();
         });
 
-        it('should allow special character bodys', () => {
+        it('should not allow special character bodys', () => {
             bodyControl.setValue('*');
-            expect(bodyControl.valid).toBeTruthy();
+            expect(bodyControl.valid).toBeFalsy();
         });
 
         it('should allow numbers in bodys', () => {
@@ -145,9 +145,10 @@ describe('AddTodoComponent', () => {
             expect(categoryControl.valid).toBeFalsy();
         });
 
-        it('should allow single character categories', () => {
+        it('should not allow single character categories', () => {
             categoryControl.setValue('x');
-            expect(categoryControl.valid).toBeTruthy();
+            expect(categoryControl.valid).toBeFalsy();
+            expect(categoryControl.hasError('minlength')).toBeTruthy();
         });
 
         it('should fail too large categories', () => {
@@ -156,9 +157,9 @@ describe('AddTodoComponent', () => {
             expect(categoryControl.hasError('maxlength')).toBeTruthy();
         });
 
-        it('should allow special character categories', () => {
+        it('should not allow special character categories', () => {
             categoryControl.setValue('*');
-            expect(categoryControl.valid).toBeTruthy();
+            expect(categoryControl.valid).toBeFalsy();
         });
 
         it('should allow numbers in categories', () => {
@@ -210,17 +211,6 @@ describe('AddTodoComponent', () => {
           categoryControl = addTodoComponent.addTodoForm.controls[`category`];
           bodyControl = addTodoComponent.addTodoForm.controls[`body`];
           mockTodoService.todoArray = [];
-        });
-
-        it('should give an object to TodoService whose status is true or false, not "complete" or "incomplete"', () => {
-          ownerControl.setValue('Elle');
-          statusControl.setValue('Complete');
-          categoryControl.setValue('Law School Applications');
-          bodyControl.setValue('Im going to harvard law!');
-
-          addTodoComponent.submitForm();
-
-          expect(typeof (mockTodoService.todoArray[0].status)).toBe('boolean');
         });
     });
 });

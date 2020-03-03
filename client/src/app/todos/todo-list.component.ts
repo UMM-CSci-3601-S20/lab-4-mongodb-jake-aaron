@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit {
   public todoOwner: string;
   public todoCategory: string;
   public todoBody: string;
-  public todoStatus: 'complete' | 'incomplete';
+  public todoStatus: true | false;
   public todoLimit: string;
 
   limitTodos(): void {

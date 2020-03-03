@@ -30,13 +30,13 @@ export class AddTodoComponent implements OnInit {
 
         body: [
             {type: 'required', message: 'Body is required'},
-            {type: 'minlength', message: 'Body must be at least 1 character long'},
+            {type: 'minlength', message: 'Body must be at least 2 characters long'},
             {type: 'maxlength', message: 'Body cannot be more than 200 characters long'}
         ],
 
         category: [
             {type: 'required', message: 'Category is required'},
-            {type: 'minlength', message: 'Category must be at least 1 character long'},
+            {type: 'minlength', message: 'Category must be at least 2 characters long'},
             {type: 'maxlength', message: 'Category cannot be more than 15 characters long'}
         ],
 
@@ -57,13 +57,13 @@ export class AddTodoComponent implements OnInit {
 
             body: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.minLength(5),
+                Validators.minLength(2),
                 Validators.maxLength(200)
             ])),
 
             category: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.minLength(1),
+                Validators.minLength(2),
                 Validators.maxLength(15)
             ])),
 

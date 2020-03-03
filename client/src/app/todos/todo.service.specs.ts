@@ -13,7 +13,7 @@ export class TodoService {
 
   getTodos(filters?: {
       category?: string,
-      status?: string,
+      status?: boolean,
       body?: string,
       owner?: string }): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
