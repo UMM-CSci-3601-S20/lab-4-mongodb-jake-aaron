@@ -96,7 +96,11 @@ public class TodoController {
     }
 
     if (ctx.queryParamMap().containsKey("status")) {
-      filters.add(eq("status", ctx.queryParam("status")));
+      boolean targetStatus = false;
+      if (ctx.queryParam("status").equalsIgnoreCase("complete")){
+        targetStatus = true;
+      }
+      filters.add(eq("status", targetStatus));
     }
     String sortBy = ctx.queryParam("sortby", "owner"); // Sort by sort query param, default is name
     String sortOrder = ctx.queryParam("sortorder", "asc");
@@ -111,15 +115,12 @@ public class TodoController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewTodo(Context ctx) {
+
     Todo newTodo = ctx.bodyValidator(Todo.class)
     .check((tdo) -> tdo.owner != null && tdo.owner.length()>0)
-    .check((tdo) -> tdo.category.matches("^(software design|video games|groceries|homework)$"))
-    .check((tdo) -> String.valueOf(tdo.status) != null &&
-      String.valueOf(tdo.status) == "true"
-      || String.valueOf(tdo.status) == "false")
+    .check((tdo) -> tdo.category != null)
     .check((tdo) -> tdo.body != null && tdo.body.length()>0)
     .get();
-
     todoCollection.insertOne(newTodo);
     ctx.status(201);
     ctx.json(ImmutableMap.of("id", newTodo._id));
