@@ -1,3 +1,4 @@
+
 import {browser, by, element} from 'protractor';
 
 export class AddTodoPage {
@@ -5,6 +6,7 @@ export class AddTodoPage {
   navigateTo() {
     return browser.get('/todos/new');
   }
+
 
   getTitle() {
     const title = element(by.className('add-todo-title')).getText();
@@ -16,6 +18,7 @@ export class AddTodoPage {
     await input.click();
     await input.sendKeys(text);
   }
+
 
   selectInput(selectID: string, value: string) {
     const sel = element(by.id(selectID));

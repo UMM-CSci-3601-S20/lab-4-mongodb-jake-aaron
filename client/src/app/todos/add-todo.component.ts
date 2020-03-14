@@ -100,3 +100,12 @@ export class AddTodoComponent implements OnInit {
         });
     }
 }
+
+/*
+* Hey Nic and KK (and whoever else may look at this)
+* At this point I am aware that there are some elements of this project that are not 100% functional
+* But i've been working on this for a week and and a half and am still not done with much more to work on for
+* this class and others, etc. and I can't let this project take up any more time or space in my head.
+* I will most likely return to this project to finish it as I would like to see it through, I just mentally
+* am incapable of doing so right now. So. Yeah. Thanks. -Aaron
+*/
