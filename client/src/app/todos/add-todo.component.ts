@@ -9,7 +9,7 @@ import { TodoService } from './todo.service';
 @Component({
     selector: 'app-add-todo',
     templateUrl: './add-todo.component.html',
-    styleUrls: ['./add-todo.component.scss']
+    styleUrls: []
 })
 export class AddTodoComponent implements OnInit {
     addTodoForm: FormGroup;
@@ -52,7 +52,7 @@ export class AddTodoComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(2),
                 Validators.maxLength(50),
-                Validators.pattern('^[A-Za-z]*$')
+                Validators.pattern('^[A-Za-z\\s]+[A-Za-z\\s]*$')
             ])),
 
             body: new FormControl('', Validators.compose([
@@ -69,7 +69,7 @@ export class AddTodoComponent implements OnInit {
 
             status: new FormControl('', Validators.compose([
                 Validators.required,
-                Validators.pattern('^(true|false)$')
+                Validators.pattern('^(Complete|Incomplete)$')
             ])),
         });
     }
@@ -79,11 +79,20 @@ export class AddTodoComponent implements OnInit {
     }
 
     submitForm() {
-        this.todoService.addTodo(this.addTodoForm.value).subscribe(newID => {
+      let statusBool;
+      const formResults = this.addTodoForm.value;
+      if ( this.addTodoForm.value.status === 'Complete') {
+        statusBool = true;
+      }
+      if (this.addTodoForm.value.status === 'Incomplete') {
+        statusBool = false;
+      }
+      this.addTodoForm.value.status = statusBool;
+      this.todoService.addTodo(this.addTodoForm.value).subscribe(newID => {
             this.snackBar.open('Added Todo ' + this.addTodoForm.value.owner, null, {
                 duration: 2000,
             });
-            this.router.navigate(['/todos/', newID]);
+            this.router.navigate(['/todos/']);
         }, err => {
             this.snackBar.open('Failed to add the Todo', null, {
                 duration: 2000,
@@ -91,12 +100,3 @@ export class AddTodoComponent implements OnInit {
         });
     }
 }
-
-/*
-* Hey Nic and KK (and whoever else may look at this)
-* At this point I am aware that there are some elements of this project that are not 100% functional
-* But i've been working on this for a week and and a half and am still not done with much more to work on for
-* this class and others, etc. and I can't let this project take up any more time or space in my head.
-* I will most likely return to this project to finish it as I would like to see it through, I just mentally
-* am incapable of doing so right now. So. Yeah. Thanks. -Aaron
-*/

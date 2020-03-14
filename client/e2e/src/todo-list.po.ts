@@ -1,59 +1,42 @@
-import { browser, by, element, /*ElementFinder,*/ Key } from 'protractor';
+import {browser, by, element, Key, ElementFinder} from 'protractor';
 
 export class TodoPage {
-    navigateTo() {
-        return browser.get('/todos');
-    }
 
-    getUrl() {
-        return browser.getCurrentUrl();
-    }
+  navigateTo() {
+    return browser.get('/todos');
+  }
 
-    getTodoTitle() {
-        const title = element(by.className('todo-list-title')).getText();
-        return title;
-    }
+  getTodoTitle() {
+    const title = element(by.className('todo-list-title')).getText();
+    return title;
+  }
 
-    backSpace() {
-        browser.actions().sendKeys(Key.BACK_SPACE).perform();
-    }
+  async typeInput(inputId: string, text: string) {
+    const input = element(by.id(inputId));
+    await input.click();
+    await input.sendKeys(text);
+  }
 
-    async typeInput(inputId: string, text: string) {
-        const input = element(by.id(inputId));
-        await input.click();
-        await input.sendKeys(text);
-    }
+  getTodoCards() {
+    return element(by.className('todo-table')).all(by.tagName('app-todo-card'));
+  }
 
-    selectMatSelectValue(selectID: string, value: string) {
-        const sel = element(by.id(selectID));
-        return sel.click().then(() => {
-            return element(by.css('mat-option[value="' + value + '"]')).click();
-        });
-    }
-    getTodoList() {
-        return element(by.className('todo-nav-list')).all(by.tagName('todo-list-item'));
-    }
-    getTodoTableRows() {
-        return element(by.tagName('tbody')).all(by.tagName('tr'));
-    }
+  getTodoListItems() {
+    return element(by.className('todo-nav-list')).all(by.className('todo-list-item'));
+  }
 
-    getTodoOwnerCells() {
-        return element.all(by.className('todo-owner-cell'));
-    }
+  selectMatSelectValue(selectID: string, value: string) {
+    const sel = element(by.id(selectID));
+    return sel.click().then(() => {
+      return element(by.css('mat-option[value="' + value + '"]')).click();
+    });
+  }
 
-    getTodoCategoryCells() {
-        return element.all(by.className('todo-category-cell'));
-    }
+  getUrl() {
+    return browser.getCurrentUrl();
+  }
 
-    getTodoStatusCells() {
-        return element.all(by.className('todo-status-cell'));
-    }
-
-    getTodoBodyCells() {
-        return element.all(by.className('todo-body-cell'));
-    }
-    clickHeaderCell(headerCellID: string) {
-        const headerCell = element(by.id(headerCellID));
-        headerCell.click();
-    }
+  clickAddTodoFAB() {
+    return element(by.className('add-todo-fab')).click();
+  }
 }
